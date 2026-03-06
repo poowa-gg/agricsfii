@@ -497,9 +497,41 @@ function AppContent() {
         }
 
         @media (max-width: 992px) {
-          .sidebar { width: 80px; }
-          .sidebar span, .group-label { display: none; }
-          .sidebar-item { justify-content: center; padding: 15px 0; }
+          .navbar { padding: 0 15px; }
+          .logo { width: 30px; height: 30px; font-size: 14px; }
+          .brand-name { font-size: 13px; }
+          .brand-sub { display: none; }
+          .nav-profile { display: none; }
+          .v-divider { display: none; }
+          .nav-academy-btn span { display: none; }
+          .nav-academy-btn { padding: 8px; }
+          
+          .main-layout { flex-direction: column; }
+          
+          .sidebar { 
+            width: 100%; 
+            height: auto; 
+            display: flex; 
+            overflow-x: auto; 
+            padding: 10px; 
+            border-right: none;
+            border-bottom: 1px solid var(--border);
+            background: white;
+            z-index: 50;
+          }
+          .sidebar-group { margin-bottom: 0; display: flex; align-items: center; }
+          .group-label { display: none; }
+          .sidebar-item { 
+            padding: 10px 15px; 
+            margin-right: 5px; 
+            border-radius: 20px; 
+            white-space: nowrap;
+          }
+          .sidebar-item span { display: none; }
+          .sidebar-item.active { border-right: none; border-bottom: 3px solid var(--primary); background: #e8f5e9; }
+          
+          .mode-toggle { font-size: 0; padding: 8px; justify-content: center; }
+          .mode-toggle svg { margin: 0; }
         }
       `}</style>
     </div>

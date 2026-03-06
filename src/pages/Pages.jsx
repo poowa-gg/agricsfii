@@ -174,6 +174,14 @@ export const LandingPage = () => {
         .mock-card:nth-child(1) { width: 200px; height: 120px; top: 0; left: 0; z-index: 3; border-top: 5px solid var(--primary); }
         .mock-card:nth-child(2) { width: 180px; height: 180px; bottom: 0; right: 0; z-index: 2; border-top: 5px solid var(--secondary); }
         .mock-card.lg { width: 100%; height: 80%; top: 10%; left: 10%; z-index: 1; }
+        @media (max-width: 768px) {
+          .landing-page { padding: 20px; }
+          .hero-section { flex-direction: column; text-align: center; gap: 40px; }
+          .hero-content p { margin: 0 auto 30px auto; }
+          .hero-btns { justify-content: center; flex-direction: column; width: 100%; }
+          .hero-btns button { width: 100%; }
+          .hero-content h1 { font-size: 32px; }
+        }
       `}</style>
         </div>
     );
@@ -302,6 +310,13 @@ export const AdminDashboard = ({ isOnline }) => {
         .name-val { font-weight: 700; color: var(--text-main); }
         .phone-val { font-size: 12px; color: var(--text-muted); }
         .text-btn { background: none; color: var(--primary); font-weight: 700; padding: 0; display: flex; align-items: center; }
+        @media (max-width: 768px) {
+          .admin-dashboard { padding: 15px; }
+          .page-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+          .header-actions { width: 100%; flex-direction: column; }
+          .header-actions > div, .header-actions button { width: 100%; }
+          .data-table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
       `}</style>
         </div>
     );
@@ -456,6 +471,13 @@ export const RegistrationPage = ({ isOnline }) => {
             color: var(--primary);
         }
         .placeholder-box:hover svg { color: var(--primary); }
+        @media (max-width: 768px) {
+            .registration-page { padding: 15px; }
+            .form-container { flex-direction: column; gap: 20px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: auto; }
+            .biometric-placeholder > div { grid-template-columns: 1fr; }
+        }
       `}</style>
         </div>
     );
@@ -466,11 +488,43 @@ export const FarmerDashboard = ({ isOnline }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // For demo, we just fetch the first farmer
-        fetch('http://localhost:3001/api/farmers').then(r => r.json()).then(data => {
-            setFarmer(data[0]);
-            setLoading(false);
-        });
+        const mockFarmer = {
+            id: 'FRM-7822-NG',
+            name: 'Amina Bello',
+            phone: '+234 803 123 4567',
+            walletBalance: 125000,
+            totalSubsidy: 250000,
+            redemptionHistory: [
+                { date: '2026-03-01', item: 'NPK Fertilizer (2 Bags)', dealer: 'Kano Agro Supply', amount: 35000 },
+                { date: '2026-02-15', item: 'Maize Seed (10kg)', dealer: 'Bello Seeds', amount: 15000 }
+            ]
+        };
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5s timeout
+
+        fetch('http://localhost:3001/api/farmers', { signal: controller.signal })
+            .then(r => {
+                if (!r.ok) throw new Error('API fetch failed');
+                return r.json();
+            })
+            .then(data => {
+                clearTimeout(timeoutId);
+                if (data && data.length > 0) {
+                    setFarmer(data[0]);
+                } else {
+                    setFarmer(mockFarmer); // Fallback to mock if API is empty
+                }
+            })
+            .catch(err => {
+                console.warn('Backend not accessible, falling back to mock data:', err.message);
+                setFarmer(mockFarmer);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+
+        return () => clearTimeout(timeoutId);
     }, []);
 
     if (loading) return <div>Loading...</div>;
@@ -551,6 +605,12 @@ export const FarmerDashboard = ({ isOnline }) => {
         .qr-name { font-size: 14px; color: var(--text-muted); }
         .item-label { font-weight: 700; color: var(--text-main); }
         .amount-neg { color: var(--error); font-weight: 700; }
+        @media (max-width: 768px) {
+          .farmer-dashboard { padding: 15px; }
+          .wallet-footer { flex-direction: column; gap: 20px; align-items: flex-start !important; }
+          .wallet-footer > div[style*="1px"] { display: none; }
+          .data-table { display: block; overflow-x: auto; white-space: nowrap; width: 100%; }
+        }
       `}</style>
         </div>
     );
@@ -671,6 +731,12 @@ export const DealerPortal = ({ isOnline, addToQueue }) => {
         .id-badge { font-family: monospace; font-weight: 800; font-size: 14px; color: var(--primary); }
         .profile-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .redeem-btn { width: 100%; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        @media (max-width: 768px) {
+          .dealer-portal { padding: 15px; }
+          .portal-grid { grid-template-columns: 1fr; }
+          .verify-input { flex-direction: column; }
+          .verify-input button { width: 100%; }
+        }
       `}</style>
         </div>
     );
@@ -738,6 +804,12 @@ export const LedgerPage = ({ isOnline }) => {
             <style>{`
         .ledger-page { padding: 30px; }
         .amount-val { font-weight: 800; color: var(--primary); }
+        @media (max-width: 768px) {
+          .ledger-page { padding: 15px; }
+          .card-header { flex-direction: column !important; align-items: stretch !important; gap: 15px; }
+          .search-box { width: 100% !important; }
+          .data-table { display: block; overflow-x: auto; white-space: nowrap; width: 100%; }
+        }
       `}</style>
         </div>
     );
@@ -784,6 +856,11 @@ export const SyncQueuePage = () => {
             <style>{`
         .sync-page { padding: 30px; }
         .empty-state { padding: 80px; text-align: center; color: var(--text-muted); opacity: 0.5; }
+        @media (max-width: 768px) {
+          .sync-page { padding: 15px; }
+          .data-table { display: block; overflow-x: auto; white-space: nowrap; width: 100%; }
+          .empty-state { padding: 40px 20px; }
+        }
       `}</style>
         </div>
     );
@@ -816,6 +893,10 @@ export const ImpactDashboard = ({ isOnline }) => {
             </div>
             <style>{`
         .impact-dashboard { padding: 30px; }
+        @media (max-width: 768px) {
+          .impact-dashboard { padding: 15px; }
+          .dashboard-grid { grid-template-columns: 1fr !important; }
+        }
       `}</style>
         </div>
     );
