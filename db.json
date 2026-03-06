@@ -1,0 +1,79 @@
+{
+  "farmers": [
+    {
+      "id": "FRM-1023",
+      "name": "Musa Ibrahim",
+      "phone": "08012345678",
+      "state": "Kano",
+      "lga": "Ungogo",
+      "farmSize": "5 Hectares",
+      "cropType": "Maize",
+      "walletBalance": 35000,
+      "totalSubsidy": 50000,
+      "redemptionHistory": [
+        { "id": "TXN-001", "date": "2026-03-01", "item": "Fertilizer", "amount": 15000, "dealer": "Kano Agro Supply" }
+      ]
+    },
+    {
+      "id": "FRM-2045",
+      "name": "Grace Adebayo",
+      "phone": "08098765432",
+      "state": "Oyo",
+      "lga": "Ibadan North",
+      "farmSize": "3 Hectares",
+      "cropType": "Cassava",
+      "walletBalance": 50000,
+      "totalSubsidy": 50000,
+      "redemptionHistory": []
+    },
+    {
+      "id": "FRM-3012",
+      "name": "Terver Akume",
+      "phone": "08123456789",
+      "state": "Benue",
+      "lga": "Makurdi",
+      "farmSize": "10 Hectares",
+      "cropType": "Rice",
+      "walletBalance": 40000,
+      "totalSubsidy": 50000,
+      "redemptionHistory": [
+        { "id": "TXN-002", "date": "2026-03-02", "item": "Seeds", "amount": 10000, "dealer": "Makurdi Seed Hub" }
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "id": "TXN-001",
+      "farmerId": "FRM-1023",
+      "farmerName": "Musa Ibrahim",
+      "program": "Fertilizer Support 2026",
+      "dealer": "Kano Agro Supply",
+      "value": 15000,
+      "timestamp": "2026-03-01T10:30:00Z",
+      "location": "Ungogo, Kano",
+      "status": "Completed"
+    },
+    {
+      "id": "TXN-002",
+      "farmerId": "FRM-3012",
+      "farmerName": "Terver Akume",
+      "program": "Seed Distribution 2026",
+      "dealer": "Makurdi Seed Hub",
+      "value": 10000,
+      "timestamp": "2026-03-02T14:15:00Z",
+      "location": "Makurdi, Benue",
+      "status": "Completed"
+    }
+  ],
+  "dealers": [
+    { "id": "DLR-001", "name": "Kano Agro Supply", "location": "Kano" },
+    { "id": "DLR-002", "name": "Makurdi Seed Hub", "location": "Benue" },
+    { "id": "DLR-003", "name": "Ibadan Input Center", "location": "Oyo" }
+  ],
+  "impactMetrics": {
+    "totalFarmers": 8540,
+    "totalSubsidyDistributed": 427000000,
+    "redemptionRate": 86,
+    "regionsCovered": 22
+  }
+}
